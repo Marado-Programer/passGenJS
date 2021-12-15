@@ -7,7 +7,7 @@
 		<meta name="keywords" content="password, passphrase, JavaScript, generator">
 		<meta name="viewport" content="width = device-width, initial-scale = 1">
 		<title>Password Generator</title>
-		<link rel="stylesheet" href="./media/css/style.css">
+		<style rel="stylesheet" href="./media/css/style.css"></style>
 		<script src="./media/js/app/app.js"></script>
 	</head>
 	<body>
