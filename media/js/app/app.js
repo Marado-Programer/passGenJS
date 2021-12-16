@@ -1,3 +1,5 @@
+var wordlist = new Array();
+
 var alphaLowerCase = new Array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
 var alphaUpperCase = new Array();
 for (var char in alphaLowerCase)
@@ -13,16 +15,31 @@ var parentheses = new Array('{', '[', '(', ')', ']', '}');
 var chars = new Array(alphaLowerCase, alphaUpperCase, numeric, symbols, pauses, quotations, dashes, matemetical, parentheses);
 
 function createPW(numChar, level) {                                             
-    var curChars = new Array();                                                 
-    var lvls = level.split('');
-    for (var lvlChoice = 0; lvlChoice < lvls.length; lvlChoice++)
-        if (lvls[lvlChoice] == '1')
-            for (var char in chars[lvlChoice])
-                curChars.push(chars[lvlChoice][char]);
-    var pw = "";
-    for (var i = 0; i < numChar; i++)
-        pw += curChars[Math.floor(Math.random() * curChars.length)];
+    validPw = false;
+    do {
+        var curChars = new Array();                                                 
+        var lvls = level.split('');
+        for (var lvlChoice = 0; lvlChoice < lvls.length; lvlChoice++)
+            if (lvls[lvlChoice] == '1')
+                for (var char in chars[lvlChoice])
+                    curChars.push(chars[lvlChoice][char]);
+        var pw = "";
+        for (var i = 0; i < numChar; i++)
+            pw += curChars[Math.floor(Math.random() * curChars.length)];
+        validPw = isValid(pw);
+        console.log(pw);
+    } while(!validPw);
     return pw;
+}
+
+function isValid(pw) {
+    for (var l in wordlist)
+        for (var w in wordlist[l]) {
+            if (pw == wordlist[l][w])
+                return false;
+            else
+                return true;
+        }
 }
 
 window.onload = function() {
@@ -107,5 +124,14 @@ window.onload = function() {
         for (var choice in choices)
             choiceStr += choices[choice].checked ? "1" : "0";
         console.log(createPW(pwSize.value, choiceStr));
+    }
+
+    wordlist.push(createWordLists());
+    console.log(wordlist);
+    for (var i in wordlist) {
+        console.log(wordlist[i]);
+        for (var j in wordlist[i]) {
+            console.log(wordlist[i][j]);
+        }
     }
 };
